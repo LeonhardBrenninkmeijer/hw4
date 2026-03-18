@@ -1,14 +1,19 @@
 <h1><%= @place["name"] %></h1>
 
 <h2>My Entries</h2>
-<% for entry in @entries %>
-  <h3><%= entry["title"] %></h3>
-  <h4><%= entry["occurred_on"] %></h4>
-  <p><%= entry["description"] %></p>
-  <% if entry.image.attached? %>
-    <%= image_tag entry.image, style: "max-width: 400px;" %>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px;">
+  <% for entry in @entries %>
+    <div style="width: calc(33.333% - 12px); box-sizing: border-box; border: 1px solid #ddd; padding: 12px; border-radius: 6px;">
+      <h3 style="margin: 0 0 4px 0;"><%= entry["title"] %></h3>
+      <p style="margin: 0 0 8px 0; color: #888; font-size: 0.85em;"><%= entry["occurred_on"] %></p>
+      <% if entry.image.attached? %>
+        <%= image_tag entry.image, style: "width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 4px;" %>
+      <% end %>
+      <p style="margin: 8px 0 0 0;"><%= entry["description"] %></p>
+    </div>
   <% end %>
-<% end %>
+</div>
 
 <p>
   <a href="/entries/new?place_id=<%= @place["id"] %>">New Entry</a>
